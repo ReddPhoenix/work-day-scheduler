@@ -47,68 +47,77 @@ function date() {
 
 // Date function called
 date();
+
+// JSON Array to referece work hour row
+var dailyDesc = [
+    // 9:00 AM
+    {
+        id: "0", hour: "09:00 ", militaryTime: "09", pastNoon: "am", memo: ""
+    },
+    // 10:00 AM
+    {
+        id: "1", hour: "10:00 ", militaryTime: "10", pastNoon: "am", memo: ""
+    },
+    // 11:00 AM
+    {
+        id: "2", hour: "11:00 ", militaryTime: "11", pastNoon: "am", memo: ""
+    },
+    // 12:00 PM
+    {
+        id: "3", hour: "12:00 ", militaryTime: "12", pastNoon: "pm", memo: ""
+    },
+    // 1:00 PM (13:00)
+    {
+        id: "4", hour: "01:00 ", militaryTime: "13", pastNoon: "pm", memo: ""
+    },
+    // 2:00 PM (14:00)
+    {
+        id: "5", hour: "02:00 ", militaryTime: "14", pastNoon: "pm", memo: ""
+    },
+    // 3:00 PM (15:00)
+    {
+        id: "6", hour: "03:00 ", militaryTime: "15", pastNoon: "pm", memo: ""
+    },
+    // 4:00 PM (16:00)
+    {
+        id: "7", hour: "04:00 ", militaryTime: "16", pastNoon: "pm", memo: ""
+    },
+    // 5:00 PM (17:00)
+    {
+        id: "8", hour: "05:00 ", militaryTime: "17", pastNoon: "pm", memo: ""
+    },
+
+]
 // console.log(date());
 
 
-// Weather variables
-var button = document.querySelector('.button')
-var inputValue = document.querySelector('.inputValue')
-var name = document.querySelector('.name');
-var desc = document.querySelector('.desc');
-var temp = document.querySelector('.temp');
-
-// Weather link test
-// let weather = 'https://api.openweathermap.org/data/2.5/weather?zip=84412,us&appid=d3dee878f6d8c661981e257c21fdc6b5'
-// console.log(weather);
-
-// Click listener to fetch weather from API
-button.addEventListener('click', function () {
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + inputValue.value + '&appid=d3dee878f6d8c661981e257c21fdc6b5')
-        .then(response => response.json())
-        .then(data => {
-            var nameValue = data['name'];
-            var tempValue = data['main']['temp'];
-            // Temperature converted from Kelvin to Farenheit
-            var tempValue = Math.round(tempValue * 1.8 - 459.67);
-            var descValue = data['weather'][0]['description'];
-
-            name.innerHTML = nameValue;
-            // &#176; produces degree sign
-            temp.innerHTML = tempValue + "&#176;";
-            desc.innerHTML = descValue;
-            console.log(nameValue);
-            console.log(tempValue);
-            console.log(descValue);
-        })
-
-        // In case of misspelled city name an alert occurs
-        .catch(err => alert('Wrong city name!'))
-})
 
 
+
+console.log(dailyDesc)
 // Create row data for hour, description, and the save button
 dailyDesc.forEach(function(thisHour) {
-     var hourRow = $("<form>").attr({
+    var hrRow = $("<form>").attr({
         "class": "row"
     });
-    $(".container").append(hourRow);
+    $(".container").append(hrRow);
     
     // Hour using 3-column grid
-    var hourField = $("<div>")
+    var hrField = $("<div>")
         .text(`${thisHour.hour}${thisHour.pastNoon}`)
         .attr({
             "class": "col-md-3 hour"
     });
 
     // Description of daily activity using 8-column grid    
-    var hourPlan = $("<div>").attr({
+    var hrDirection = $("<div>").attr({
             "class": "col-md-8 description p-0"
         });
 
     
     // Current hour and scheduler verified  if in the past, present, future
     var planData = $("<textarea>");
-    hourPlan.append(planData);
+    hrDirection.append(planData);
     planData.attr("id", thisHour.id);
 
     if (thisHour.militaryTime < moment().format("HH")) {
@@ -129,18 +138,10 @@ dailyDesc.forEach(function(thisHour) {
     var saveButton = $("<i class='far fa-save fa-lg'></i>")
     var savePlan = $("<button>").attr({"class": "col-md-1 saveBtn"});
     savePlan.append(saveButton);
-    hourRow.append(hourField, hourPlan, savePlan);
+    hrRow.append(hrField, hrDirection, savePlan);
 })
 
-// Click listener for Save Button, runs function to Stringify & display description of daily activity
-$(".saveBtn").on("click", function(event) {
-    event.preventDefault();
-    var saveIndex = $(this).siblings(".description").children(".future").attr("id");
-    dailyDesc[saveIndex].description = $(this).siblings(".description").children(".future").val();
-    console.log(saveIndex);
-    descSave();
-    dispDesc();
-})
+
 
 // Function to stringify description of daily activity to save to JSON Array & local storage (DO NOT USE Session Storage)
 function descSave() {
@@ -150,7 +151,7 @@ function descSave() {
 // Function to displays description of daily activity
 function dispDesc() {
     dailyDesc.forEach(function (_thisHour) {
-        $(`#${_thisHour.id}`).val(_thisHour.description);
+        $(`#${_thisHour.id}`).val(_thisHour.memo);
     })
 }
 
@@ -168,79 +169,46 @@ function stored() {
 // Function called to check for items in local storage
 stored();
 
-// JSON Array to referece work hour row
-var dailyDesc = [
-    // 9:00 AM
-    {
-        id: "0",
-        hour: "09",
-        militaryTime: "09",
-        pastNoon: "am",
-        description: ""
-    },
-    // 10:00 AM
-    {
-        id: "1",
-        hour: "10",
-        militaryTime: "10",
-        pastNoon: "am",
-        description: ""
-    },
-    // 11:00 AM
-    {
-        id: "2",
-        hour: "11",
-        militaryTime: "11",
-        pastNoon: "am",
-        description: ""
-    },
-    // 12:00 PM
-    {
-        id: "3",
-        hour: "12",
-        militaryTime: "12",
-        pastNoon: "pm",
-        description: ""
-    },
-    // 1:00 PM (13:00)
-    {
-        id: "4",
-        hour: "01",
-        militaryTime: "13",
-        pastNoon: "pm",
-        description: ""
-    },
-    // 2:00 PM (14:00)
-    {
-        id: "5",
-        hour: "02",
-        militaryTime: "14",
-        pastNoon: "pm",
-        description: ""
-    },
-    // 3:00 PM (15:00)
-    {
-        id: "6",
-        hour: "03",
-        militaryTime: "15",
-        pastNoon: "pm",
-        description: ""
-    },
-    // 4:00 PM (16:00)
-    {
-        id: "7",
-        hour: "04",
-        militaryTime: "16",
-        pastNoon: "pm",
-        description: ""
-    },
-    // 5:00 PM (17:00)
-    {
-        id: "8",
-        hour: "05",
-        militaryTime: "17",
-        pastNoon: "pm",
-        description: ""
-    },
+// Click listener for Save Button, runs function to Stringify & display description of daily activity
+$(".saveBtn").on("click", function(event) {
+    event.preventDefault();
+    var saveIndex = $(this).siblings(".description").children(".future").attr("id");
+    dailyDesc[saveIndex].memo = $(this).siblings(".description").children(".future").val();
+    descSave();
+    dispDesc();
+})
 
-]
+// Weather variables
+var button = document.querySelector('.button')
+var inputValue = document.querySelector('.inputValue')
+var name = document.querySelector('.name');
+var desc = document.querySelector('.desc');
+var temp = document.querySelector('.temp');
+
+// Weather link test
+// let weather = 'https://api.openweathermap.org/data/2.5/weather?zip=84412,us&appid=d3dee878f6d8c661981e257c21fdc6b5'
+// console.log(weather);
+
+// Click listener to fetch weather from API
+button.addEventListener('click', function () {
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + inputValue.value + '&appid=d3dee878f6d8c661981e257c21fdc6b5')
+    .then(response => response.json())
+    .then(data => {
+        var nameValue = data['name'];
+        var tempValue = data['main']['temp'];
+        // Temperature converted from Kelvin to Farenheit
+        var tempValue = Math.round(tempValue * 1.8 - 459.67);
+        var descValue = data['weather'][0]['description'];
+        
+        name.innerHTML = nameValue;
+        // &#176; produces degree sign
+        temp.innerHTML = tempValue + "&#176;";
+        desc.innerHTML = descValue;
+        console.log(nameValue);
+        console.log(tempValue);
+        console.log(descValue);
+    })
+    
+    // In case of misspelled city name an alert occurs
+    .catch(err => alert('Wrong city name!'))
+})

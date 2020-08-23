@@ -1,7 +1,7 @@
 # work-day-scheduler
 
 ## Link
-Link to live site: [work-day-scheduler]()
+Link to live site: [work-day-scheduler](https://reddphoenix.github.io/work-day-scheduler/)
 
 ## Screenshot of live website
 
@@ -50,4 +50,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-# work-day-scheduler
+
