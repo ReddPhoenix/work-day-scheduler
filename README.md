@@ -5,7 +5,7 @@ Link to live site: [work-day-scheduler](https://reddphoenix.github.io/work-day-s
 
 ## Screenshot of live website
 
-![Website Screenshot]()
+![Website Screenshot](https://raw.githubusercontent.com/ReddPhoenix/work-day-scheduler/master/live-website-desktop.png)
 
 ## Project Overview
 
