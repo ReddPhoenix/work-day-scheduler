@@ -20,7 +20,6 @@ Website that provides a work day schedule using a standard 9:00 AM - 5:00 PM ran
 ## Credits
 
 * Chris Sannar (Weather API, Local Storage Assistance, JSON)
-* 
 * https://w3docs.com
 * https://w3schools.com
 * https://stackoverflow.com
